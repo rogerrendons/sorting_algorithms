@@ -41,6 +41,7 @@ size_t part(int *array, size_t size, size_t lo, size_t hi)
 			if (Rec1 != Rec2)
 			{
 				int Aux;
+
 				Aux = array[Rec1];
 				array[Rec1] = array[Rec2];
 				array[Rec2] = Aux;
@@ -52,6 +53,7 @@ size_t part(int *array, size_t size, size_t lo, size_t hi)
 	if (Rec1 != hi && array[Rec1] != array[hi])
 	{
 		int Aux;
+		
 		Aux = array[Rec1];
 		array[Rec1] = array[hi];
 		array[hi] = Aux;
