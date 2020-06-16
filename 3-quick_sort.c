@@ -1,44 +1,73 @@
 #include "sort.h"
+
 /**
- * quick_sort -
-  * @array: array to sort
-  * @size: size of array
+ * Sorter - Sorter function
+ * @lo: less item
+ * @hi: max item
+ * @size: size array
+ * @array: array
  */
-
-void quick_sort(int *array, size_t size)
+void Sorter(int *array, size_t size, size_t lo, size_t hi)
 {
-	int start, end;
+	size_t Result;
 
-	start = 0;
-	end = size - 1;
-	sort(array, start, end);
+	if (lo < hi)
+	{
+		Result = part(array, size, lo, hi);
+		if (Result > 0)
+			Sorter(array, size, lo, Result - 1);
+		Sorter(array, size, Result + 1, hi);
+	}
 }
 
-void sort(int *array, size_t start, size_t end)
+/**
+ * part - place change of sort
+ * @array: array
+ * @size: size
+ * @lo: less item
+ * @hi: max item
+ *
+ * Return: item
+ */
+size_t part(int *array, size_t size, size_t lo, size_t hi)
 {
-	size_t left, right;
-	int pivot;
+	int Changer;
+	size_t Rec1, Rec2;
 
-	if (end - start < 2)
-		return;
-	pivot = array[start];
-	left = start - 1;
-	right = end + 1;
-	while (1)
+	for (Rec1 = lo, Rec2 = lo, Changer = array[hi]; Rec2 < hi; Rec2++)
 	{
-		do left++;
-		while (array[left] < pivot);
-		do right--;
-		while (array[right] > pivot);
-		if (left >= right)
-			break;
-		int swap_in;
-
-		swap_in = array[left];
-		array[left] = array[right];
-		array[right] = swap_in;
-		print_array(array, 10);
+		if (array[Rec2] < Changer)
+		{
+			if (Rec1 != Rec2)
+			{
+				int Aux;
+				Aux = array[Rec1];
+				array[Rec1] = array[Rec2];
+				array[Rec2] = Aux;
+				print_array(array, size);
+			}
+			Rec1++;
+		}
 	}
-	sort(array, start, right + 1);
-	sort(array, right + 1, end);
+	if (Rec1 != hi && array[Rec1] != array[hi])
+	{
+		int Aux;
+		Aux = array[Rec1];
+		array[Rec1] = array[hi];
+		array[hi] = Aux;
+		print_array(array, size);
+	}
+	return (Rec1);
+}
+
+/**
+ * quick_sort - quick sort array
+ * @array: array
+ * @size: size of array
+ */
+void quick_sort(int *array, size_t size)
+{
+	if (array == NULL || size < 2)
+		return;
+	Sorter(array, size, 0, size - 1);
 }
