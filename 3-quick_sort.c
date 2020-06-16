@@ -7,11 +7,9 @@
 
 void quick_sort(int *array, size_t size)
 {
-	size_t mysize;
 	int start, end;
 
 	start = 0;
-	mysize = size;
 	end = size - 1;
 	sort(array, start, end);
 }
